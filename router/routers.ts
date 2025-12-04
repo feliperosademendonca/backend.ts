@@ -14,18 +14,18 @@ router.get("/app", (req: Request, res: Response) => {
   res.send(`Rota app test `);
 });
 
-router.post("/signup", (req: Request<{},{}, SignUpBody>, res: Response) => {
+router.post("/signup", async (req: Request<{},{}, SignUpBody>, res: Response) => {
   //receber os dados no body do request 
   const reqBody:SignUpBody   = req.body
   console.log("Dados recebidos no /signup:", reqBody);
   
-  validator( reqBody)
+  const returnValidator = await validator( reqBody)
 
   
   //validar os dados dentro das minhas regreas de negocio
 
   //retornar para resposta do request "success" ou "error" 
-  res.send();
+  res.send(returnValidator);
 });
 
 router.post("/login", (req: Request, res: Response) => {

@@ -1,7 +1,7 @@
 // src/pages/SignupPage.tsx
 import React, { useState } from 'react';
 import type { SignUpBody } from "../../../../types/express"
-import { validator } from "./validator"
+import { validator } from "../utils/validator"
 const SignupPage: React.FC = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -44,7 +44,7 @@ const SignupPage: React.FC = () => {
   };
 
   return (
-    <div className="">
+    <div className="container">
       <h2>Cadastro</h2>
       <form onSubmit={handleSubmit}>
         <label>Usuário

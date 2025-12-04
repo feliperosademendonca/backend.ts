@@ -1,14 +1,16 @@
-import Joi from "joi";
-import express from 'express'
-import type { SignUpBody } from "../types/express"
+console.log("scripts validador de inputs")
+import  type { SignUpBody } from "../../../../types/express"
 
+import Joi from "joi";
+ 
+ 
 
 const allowedDomains = [
   "gmail.com",
   "outlook.com",
   "hotmail.com",
   "icloud.com"
-];
+ ];
 
 const emailSchema = Joi.string()
   .email({ tlds: { allow: false } })
@@ -23,25 +25,15 @@ const emailSchema = Joi.string()
     "any.invalid": "Este domínio de e-mail não é permitido"
   });
 
-
 const signUpSchema = Joi.object({
   phone: Joi.string().min(11).max(15).required(),
   name: Joi.string().min(6).required(),
-  email: emailSchema || null,
+  email:emailSchema,
   password: Joi.string().min(6).required(),
-
-  confirmPassword: Joi.any()
-    .valid(Joi.ref("password"))
-    .required()
-    .messages({
-      "any.only": "As senhas não conferem"
-    }),
-
-  indicationId: Joi.string().required()
+  id: Joi.string().required()
 });
 
-
-export async function validator(body: SignUpBody) {
+export async function validator (  body: SignUpBody) {
   console.log(body)
   const { error, value } = signUpSchema.validate(body);
 
@@ -49,11 +41,8 @@ export async function validator(body: SignUpBody) {
     throw new Error(error.message);
   }
 
-  // aqui entram regras de negócio
-  // ex: hash da senha, salvar no banco etc.
-
   return {
-    msg: "Usuário criado",
+    msg: "dados válidos, prossiga.",
     data: value
   };
 }
