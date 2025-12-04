@@ -1,3 +1,4 @@
+//.\repositories\database.js
 import Database from "better-sqlite3";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -17,11 +18,11 @@ db.prepare(`
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     indicationId TEXT NOT NULL,
     name TEXT NOT NULL,
-    phone TEXT NOT NULL,
-    email TEXT,
+    phone TEXT NOT NULL UNIQUE,
+    email TEXT UNIQUE,
     password TEXT NOT NULL,
-    pixKey TEXT,
-    cpf TEXT,
+    pixKey TEXT UNIQUE,
+    cpf TEXT UNIQUE,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
   );
 `).run();

@@ -20,11 +20,11 @@ router.post("/signup", async (req: Request<{}, {}, SignUpBody>, res: Response) =
   const reqBody: SignUpBody = req.body
   console.log("Dados recebidos no /signup:", reqBody);
 
-  const returnValidator = await validator(reqBody)
-  createUser(req, res)
+  await validator(reqBody)
+  const returnCreateUser = await createUser(req, res)
 
-
-  res.send(returnValidator);
+console.log("Resposta do /signup:", returnCreateUser);
+  res.send(returnCreateUser);
 });
 
 router.post("/login", (req: Request, res: Response) => {
